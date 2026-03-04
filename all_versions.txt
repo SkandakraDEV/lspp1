@@ -1,6 +1,0 @@
-D:\laragon\www\lspp1\vendor\fakerphp\faker\src\Faker\Core\Version.php
-D:\laragon\www\lspp1\vendor\nikic\php-parser\lib\PhpParser\PhpVersion.php
-D:\laragon\www\lspp1\vendor\phar-io\version\src\Version.php
-D:\laragon\www\lspp1\vendor\phpunit\php-code-coverage\src\Version.php
-D:\laragon\www\lspp1\vendor\phpunit\phpunit\src\Runner\Version.php
-D:\laragon\www\lspp1\vendor\sebastian\version\src\Version.php

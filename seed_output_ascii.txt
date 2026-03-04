@@ -1,2 +1,0 @@
-
-Parse error: syntax error, unexpected token "readonly", expecting "abstract" or "final" or "class" in D:\laragon\www\lspp1\vendor\sebastian\version\src\Version.php on line 23
