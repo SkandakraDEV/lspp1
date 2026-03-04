@@ -17,7 +17,17 @@ RUN composer install \
     --optimize-autoloader \
     --no-interaction
 
-# ---------- Stage 2: Final Production ----------
+# ---------- Stage 2: Asset Builder ----------
+FROM node:20 AS assets
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# ---------- Stage 3: Final Production ----------
 FROM php:8.4-apache
 
 WORKDIR /var/www/html
@@ -40,13 +50,20 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+
 # Copy source
 COPY . .
+
+COPY --from=assets /app/public/build public/build
+
+RUN chown -R www-data:www-data storage bootstrap
 
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 # Copy vendor dari stage sebelumnya
 COPY --from=vendor /app/vendor ./vendor
+
+# Copy assets dari stage assets
 
 RUN chown -R www-data:www-data storage bootstrap/cache
 
