@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  app:
+    image: hayya:2.1
+    container_name: pkwu-app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: pkwu_db
+      DB_USERNAME: pkwu_user
+      DB_PASSWORD: secret
+    networks:
+      - dokpoy-network
+
+  db:
+    image: mariadb:11
+    container_name: pkwu-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: pkwu_db
+      MYSQL_USER: pkwu_user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - dokpoy-network
+
+volumes:
+  dbdata:
+
+networks:
+  dokpoy-network:
+    driver: bridge
