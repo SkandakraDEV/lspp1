@@ -54,6 +54,13 @@ RUN apt-get update \
 # Copy source
 COPY . .
 
+RUN mkdir -p storage/framework/views \
+    storage/framework/cache \
+    storage/framework/sessions \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
+    
+
 COPY --from=assets /app/public/build public/build
 
 RUN chown -R www-data:www-data storage bootstrap
